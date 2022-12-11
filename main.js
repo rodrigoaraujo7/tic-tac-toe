@@ -3,6 +3,19 @@ const boardElement = document.querySelector('[data-board]');
 
 let isCircleTurn; // undefined
 
+const winningCombination = () => {
+    [0, 1, 2], // first line
+    [3, 4, 5], // second line
+    [6, 7, 8], // third line
+
+    [0, 3, 6], // first top to bottom
+    [1, 4, 7], // second top to bottom
+    [2, 5, 8], // third top to bottom
+    
+    [0, 4, 8], // top-left to bottom-right
+    [2, 4, 6] // top-right to bottom-left
+}
+
 const startGame = () => {
     for(const cell of cellElements) {
         // add this event to all cells
@@ -35,10 +48,13 @@ const swapTurn = () => {
 }
 
 const handleClick = (e) => {
+    // place mark
     const cell = e.target; // verify the target cell
     const classToAdd = isCircleTurn ? 'circle' : 'x';
 
     placeMark(cell, classToAdd);
+
+    // change player
     swapTurn();
 }
 
