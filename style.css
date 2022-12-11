@@ -23,6 +23,8 @@ body {
     height: 100%;
 }
 
+
+
 .cell {
     display: flex;
     justify-content: center;
@@ -87,7 +89,9 @@ body {
 
 /* circle icon */
 .cell.circle::before,
-.cell.circle::after {
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover:before,
+.board.circle .cell:not(.x):not(.circle):hover:after {
     content: '';
     height: calc(6.25rem * 0.6); /* 15% of cell size */
     width: calc(6.25rem * 0.6); /* 60% of cell size */
@@ -98,6 +102,45 @@ body {
     background-color: #484d5a;
 }
 
+/* next player opacity */
+.board.x .cell:not(.x):not(.circle):hover:before,
+.board.x .cell:not(.x):not(.circle):hover:after,
+.board.circle .cell:not(.x):not(.circle):hover:before,
+.board.circle .cell:not(.x):not(.circle):hover:after {
+    background-color: #2e313a;
+}
+
+/* winning message */
 .winning-message {
-    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.winning-message > button {
+    padding: 15px 20px;
+    margin-top: 1rem;
+
+    font-size: 1.5rem;
+    color: #fff;
+    background: linear-gradient(90deg, #19063b, #06094d);
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.winning-message > p {
+    color: #fff;
+    font-size: 3rem;
 }
