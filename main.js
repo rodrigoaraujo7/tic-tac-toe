@@ -1,5 +1,7 @@
 const cellElements = document.querySelectorAll('[data-cell]');
 const boardElement = document.querySelector('[data-board]');
+const winningMessageElement     = document.querySelector('[data-winning-message]');
+const winningMessageTextElement = document.querySelector('[data-winning-message-text]');
 
 let isCircleTurn; // undefined
 
@@ -29,6 +31,20 @@ const startGame = () => {
     boardElement.classList.add('x')
 }
 
+// end game
+const endGame = isDraw => {
+    if(isDraw) {
+        winningMessageTextElement.innerText = 'Draw'
+    } else {
+        winningMessageTextElement.innerText = isCircleTurn 
+        ? 'Circle Win' 
+        : 'X Win';
+    }
+
+    winningMessageElement.classList.add('show-winning-message')
+}
+
+// check if any player win
 const checkForWin = currentPlayer => {
     // for each combination ->
     return winningCombinations.some(combination => {
@@ -70,7 +86,7 @@ const handleClick = (e) => {
     // verify win
     const isWin = checkForWin(classToAdd);
     if(isWin) {
-        console.log('winner')
+        endGame(false)
     }
 
     // change player
