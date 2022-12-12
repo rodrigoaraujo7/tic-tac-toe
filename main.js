@@ -22,6 +22,8 @@ const winningCombinations = [
 
 // start game
 const startGame = () => {
+    isCircleTurn = false; // initial player
+
     for(const cell of cellElements) {
         // clean the game when click in restart button!
         cell.classList.remove('circle')
@@ -34,9 +36,7 @@ const startGame = () => {
 
     }
 
-    isCircleTurn = false; // initial player
-    boardElement.classList.add('x');
-
+    setBoardHoverClass()
     winningMessageElement.classList.remove('show-winning-message')
 }
 
@@ -65,15 +65,16 @@ const checkForWin = currentPlayer => {
     })
 }
 
+const checkForDraw = () => {
+    return [... cellElements].every(cell => {
+        return cell.classList.contains('x') || cell.classList.contains('circle') 
+    })
+}
+
 // place a new mark
 const placeMark = (cell, classToAdd) => cell.classList.add(classToAdd);
 
-const swapTurn = () => {
-    isCircleTurn = !isCircleTurn; // invert the bool value
-    // IMPORTANT -> isCircleTurn is declared false(circle)
-    // now the game is started true(x)
-    // console.log(isCircleTurn)
-
+const setBoardHoverClass = () => {
     // remove class to prevents bugs
     boardElement.classList.remove('circle');
     boardElement.classList.remove('x');
@@ -85,6 +86,15 @@ const swapTurn = () => {
     }
 }
 
+const swapTurn = () => {
+    isCircleTurn = !isCircleTurn; // invert the bool value
+    // IMPORTANT -> isCircleTurn is declared false(circle)
+    // now the game is started true(x)
+    // console.log(isCircleTurn)
+
+    setBoardHoverClass();
+}
+
 const handleClick = (e) => {
     // place mark
     const cell = e.target; // verify the target cell
@@ -92,14 +102,18 @@ const handleClick = (e) => {
 
     placeMark(cell, classToAdd);
 
-    // verify win
+    // verify win/draw
     const isWin = checkForWin(classToAdd);
+    const isDraw = checkForDraw()
+
     if(isWin) {
         endGame(false)
+    } else if(isDraw) {
+        endGame(true)
+    } else {
+        // change player
+        swapTurn();
     }
-
-    // change player
-    swapTurn();
 }
 
 startGame();
