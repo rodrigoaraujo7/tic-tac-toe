@@ -19,7 +19,7 @@
 
 ## Participants
 
-| [<img src="https://avatars.githubusercontent.com/rodrigoaraujo7" width="75px;"/>](https://github.com/guilhermerodz) |
+| [<img src="https://avatars.githubusercontent.com/rodrigoaraujo7" width="75px;"/>](https://github.com/rodrigoaraujo7) |
 | :------------------------------------------------------------------------------------------------------------------------: |
 
 
